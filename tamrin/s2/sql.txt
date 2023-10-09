@@ -1,0 +1,9 @@
+# Users
+
+INSERT INTO users (name, email, password, remember_token, email_verified_at, created_at, updated_at)
+VALUES ('Jack', 'jack@gmail.com', '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL , NULL, NOW(), NOW());
+
+# Messages
+
+INSERT INTO messages (title, body, email, replied_at, created_at, updated_at)
+VALUES ('Bug', 'I Found a Bug', 'jack@gmail.com', NULL, NOW(), NOW());
