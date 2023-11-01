@@ -1,11 +1,22 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
-        "./resources/**/*.blade.php"
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/views/**/*.blade.php',
+        './resources/js/**/*.tsx',
     ],
+
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            },
+        },
     },
+
     plugins: [require("daisyui")],
     daisyui: {
         themes: false, // true: all themes | false: only light + dark | array: specific themes like this ["light", "dark", "cupcake"]
@@ -17,5 +28,4 @@ export default {
         prefix: "", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
         logs: false, // Shows info about daisyUI version and used config in the console when building your CSS
     },
-}
-
+};
