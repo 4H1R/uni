@@ -8,6 +8,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -26,11 +27,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        DB::insert('insert into users
+                    (name, email, email_verified_at, password, is_admin, remember_token, created_at, updated_at)
+                    VALUE (?, ?, null, ?, false,null, now(), now())',
+            [$request->name, $request->email, Hash::make($request->password)]
+        );
+
+        $user = User::find(DB::getPdo()->lastInsertId());
 
         event(new Registered($user));
 

@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProjectController;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,4 +11,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('projects', ProjectController::class);
+use App\Http\Controllers\Main\ProductController;
+use App\Http\Controllers\Main\UserController;
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('users/me', [UserController::class, 'me'])->name('users.me');
+});
+
+Route::apiResource('products', ProductController::class)->only(['index', 'show']);
+
+require __DIR__.'/manage.php';
