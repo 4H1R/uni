@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Product::class);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -22,8 +27,6 @@ class ProductController extends Controller
      */
     public function show(Product $product): Product
     {
-        abort_unless($product->is_active, 404);
-
         return $product;
     }
 }

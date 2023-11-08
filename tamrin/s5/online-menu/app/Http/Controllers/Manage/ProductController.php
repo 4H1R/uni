@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Manage\ProductRequest;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Product::class);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -22,9 +27,13 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request): Product
     {
-        //
+        DB::insert('insert into products
+        (name, price, previous_price, short_description, description,quantity,is_active, created_at, updated_at)
+        values (:name,:price,:previous_price,:short_description,:description,:quantity,:is_active,now(),now())', $request->validated());
+
+        return Product::hydrate(DB::select('select * from products where id = ?', [DB::getPdo()->lastInsertId()]))->first();
     }
 
     /**
@@ -38,9 +47,21 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product): Product
     {
-        //
+        DB::update('update products set
+        name = :name,
+        price = :price,
+        previous_price = :previous_price,
+        short_description = :short_description,
+        description = :description,
+        quantity = :quantity,
+        is_active = :is_active,
+        updated_at = now()
+        where id = :id',
+            [...$request->validated(), 'id' => $product->id]);
+
+        return Product::hydrate(DB::select('select * from products where id = ?', [$product->id]))->first();
     }
 
     /**
