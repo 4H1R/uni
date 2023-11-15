@@ -2,25 +2,25 @@
 
 namespace App\Policies;
 
-use App\Models\Message;
+use App\Models\Province;
 use App\Models\User;
 
-class MessagePolicy
+class ProvincePolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Message $message): bool
+    public function view(?User $user, Province $province): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,13 +28,13 @@ class MessagePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Message $message): bool
+    public function update(User $user, Province $province): bool
     {
         return false;
     }
@@ -42,7 +42,7 @@ class MessagePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Message $message): bool
+    public function delete(User $user, Province $province): bool
     {
         return false;
     }
@@ -50,7 +50,7 @@ class MessagePolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Message $message): bool
+    public function restore(User $user, Province $province): bool
     {
         return false;
     }
@@ -58,7 +58,7 @@ class MessagePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Message $message): bool
+    public function forceDelete(User $user, Province $province): bool
     {
         return false;
     }
