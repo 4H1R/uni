@@ -11,7 +11,9 @@
 |
 */
 
+use App\Http\Controllers\Main\CityController;
 use App\Http\Controllers\Main\ProductController;
+use App\Http\Controllers\Main\ProvinceController;
 use App\Http\Controllers\Main\UserController;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -19,5 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::apiResource('products', ProductController::class)->only(['index', 'show']);
+Route::apiResource('provinces', ProvinceController::class)->only(['index', 'show']);
+Route::apiResource('cities', CityController::class)->only(['index', 'show']);
 
 require __DIR__.'/manage.php';
