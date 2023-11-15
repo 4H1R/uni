@@ -5,11 +5,17 @@ namespace App\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Message::class);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -31,14 +37,16 @@ class MessageController extends Controller
      */
     public function update(Request $request, Message $message)
     {
-        //
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Message $message)
+    public function destroy(Message $message): JsonResponse
     {
-        //
+        DB::delete('delete from messages where id = ?', [$message->id]);
+
+        return response()->json(['message' => "You've deleted the message successfully."]);
     }
 }
