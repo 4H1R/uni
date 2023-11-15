@@ -48,9 +48,9 @@ class ProvinceController extends Controller
      */
     public function update(ProvinceRequest $request, Province $province): Province
     {
-        DB::update('update products set name = :name, updated_at = now() where id = :id', [...$request->validated(), 'id' => $province->id]);
+        DB::update('update provinces set name = :name, updated_at = now() where id = :id', [...$request->validated(), 'id' => $province->id]);
 
-        return Product::hydrate(DB::select('select * from products where id = ?', [$province->id]))->first();
+        return Product::hydrate(DB::select('select * from provinces where id = ?', [$province->id]))->first();
     }
 
     /**

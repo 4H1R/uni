@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\Manage\CityController;
 use App\Http\Controllers\Manage\MessageController;
 use App\Http\Controllers\Manage\ProductController;
 use App\Http\Controllers\Manage\ProvinceController;
@@ -21,4 +22,5 @@ Route::middleware('auth:sanctum')->prefix('manage')->name('manage.')->group(func
     Route::apiResource('users', UserController::class);
     Route::apiResource('messages', MessageController::class)->except(['store']);
     Route::apiResource('provinces', ProvinceController::class);
+    Route::apiResource('cities', CityController::class);
 });
