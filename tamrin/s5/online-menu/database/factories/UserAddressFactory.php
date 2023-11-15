@@ -17,7 +17,10 @@ class UserAddressFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->words(rand(1, 5), true),
+            'address' => fake()->sentence(),
+            'phone' => fake()->phoneNumber(),
+            'postal_code' => fake()->postcode(),
         ];
     }
 }
