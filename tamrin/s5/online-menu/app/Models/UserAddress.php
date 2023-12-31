@@ -37,6 +37,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|UserAddress whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserAddress whereUserId($value)
  *
+ * @property-read \App\Models\City $city
+ * @property-read \App\Models\User $user
+ *
  * @mixin \Eloquent
  */
 class UserAddress extends Model

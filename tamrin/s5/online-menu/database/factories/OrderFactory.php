@@ -17,7 +17,10 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'total_amount' => fake()->numberBetween(10_000,100_000),
+            'delivery_amount' => fake()->numberBetween(10_000,100_000),
+            'paying_amount' => fake()->numberBetween(10_000,100_000),
+            'description' => fake()->boolean() ? fake()->realText() : null,
         ];
     }
 }
