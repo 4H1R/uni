@@ -45,7 +45,8 @@ class OrderController extends Controller
     {
         $baseQuery = '
     SELECT
-        SUM(order_items.quantity) AS products_count,
+        SUM(order_items.quantity) AS products_quanitty_sum,
+        COUNT(order_items.id) AS products_count,
         AVG(products.price) AS avg_price,
         COUNT(CASE WHEN products.previous_price IS NULL THEN 1 END) AS products_without_discount_count,
         COUNT(CASE WHEN products.previous_price IS NOT NULL THEN 1 END) AS products_with_discount_count
