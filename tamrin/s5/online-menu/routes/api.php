@@ -19,7 +19,7 @@ use App\Http\Controllers\Main\UserController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('users/me', [UserController::class, 'me'])->name('users.me');
-    Route::apiResource('orders', OrderController::class)->only(['index','show']);
+    Route::apiResource('orders', OrderController::class)->only(['index', 'show']);
 });
 
 Route::apiResource('products', ProductController::class)->only(['index', 'show']);

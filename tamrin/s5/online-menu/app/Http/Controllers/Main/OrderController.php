@@ -10,18 +10,19 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Order::class);
-    }
-
     public function index(): Collection
     {
-        return Order::hydrate(DB::select('select * from orders where user_id = :user_id',['user_id' => Auth::id()]));
+        $query = 'select * from orders
+        where user_id = :user_id
+        order by orders.id desc';
+
+        return Order::hydrate(DB::select($query, ['user_id' => Auth::id()]));
     }
 
     public function show(Order $order): Order
     {
+        abort_unless(Auth::id() === $order->user_id, 403);
+
         return $order;
     }
 }
