@@ -19,6 +19,8 @@ use App\Http\Controllers\Manage\ProvinceController;
 use App\Http\Controllers\Manage\UserController;
 
 Route::middleware('auth:sanctum')->prefix('manage')->name('manage.')->group(function () {
+    Route::get('products/{product}/report', [ProductController::class, 'reportProduct']);
+    Route::get('products/report', [ProductController::class, 'report']);
     Route::apiResource('products', ProductController::class);
     Route::get('users/{user}/report', [UserController::class, 'reportUser']);
     Route::get('users/report', [UserController::class, 'report']);

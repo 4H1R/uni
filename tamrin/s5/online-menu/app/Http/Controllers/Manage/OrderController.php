@@ -15,12 +15,22 @@ class OrderController extends Controller
         $this->authorizeResource(Order::class);
     }
 
-    public function index(): Collection
+    public function index(Request $request): Collection
     {
-        $query = 'select * from orders
-        order by orders.id desc';
+        $cityWhere = '';
+        $bindings = [];
 
-        return Order::hydrate(DB::select($query));
+        if ($cityId = $request->get('city_id')) {
+            $cityWhere = 'where user_addresses.city_id = :city_id';
+            $bindings['city_id'] = $cityId;
+        }
+
+        $query = "select orders.* from orders
+            join user_addresses on orders.address_id = user_addresses.id
+            $cityWhere
+            order by orders.id desc";
+
+        return Order::hydrate(DB::select($query, $bindings));
     }
 
     public function report(Request $request): Collection

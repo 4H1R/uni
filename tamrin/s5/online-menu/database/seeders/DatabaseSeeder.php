@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
 use App\Models\UserAddress;
+use App\Models\WishList;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,14 +26,17 @@ class DatabaseSeeder extends Seeder
 
         $cities = City::all('id');
         User::factory(50)
-            ->has(UserAddress::factory(rand(1, 3))->sequence(fn () => ['city_id' => $cities->random()->id]), 'addresses')
+            ->has(UserAddress::factory(random_int(1, 3))->sequence(fn () => ['city_id' => $cities->random()->id]), 'addresses')
             ->create();
 
-        Product::factory(20)->create();
+        Product::factory(20)
+            ->has(WishList::factory(random_int(1, 5))
+                ->sequence(fn () => ['user_id' => User::all()->random()->id]))
+            ->create();
         Message::factory(20)->create();
 
         Order::factory(100)
-            ->has(OrderItem::factory(rand(1, 5))
+            ->has(OrderItem::factory(random_int(1, 5))
                 ->sequence(fn () => ['product_id' => Product::all()->random()->id]),
                 'items')
             ->sequence(fn () => [
